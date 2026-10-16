@@ -1,4 +1,3 @@
-
 package com.stadifix.api.catalog.domain;
 
 import jakarta.persistence.*;
