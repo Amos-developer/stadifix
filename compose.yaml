@@ -1,0 +1,27 @@
+
+services:
+  postgres:
+    image: postgres:17
+    container_name: stadifix-postgres
+
+    environment:
+      POSTGRES_DB: stadifix_db
+      POSTGRES_USER: stadifix
+      POSTGRES_PASSWORD: ${STADIFIX_DB_PASSWORD}
+
+    ports:
+      - "127.0.0.1:5433:5432"
+
+    volumes:
+      - stadifix_pgdata:/var/lib/postgresql/data
+
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U stadifix -d stadifix_db
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  stadifix_pgdata:

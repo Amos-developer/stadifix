@@ -1,8 +1,5 @@
-
 package com.stadifix.api.catalog.api;
-
 import com.stadifix.api.catalog.dto.ServiceSummaryResponse;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

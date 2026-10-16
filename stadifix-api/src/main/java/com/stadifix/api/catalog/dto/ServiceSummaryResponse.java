@@ -1,5 +1,4 @@
 package com.stadifix.api.catalog.dto;
-
 import java.math.BigDecimal;
 import java.util.UUID;
 
