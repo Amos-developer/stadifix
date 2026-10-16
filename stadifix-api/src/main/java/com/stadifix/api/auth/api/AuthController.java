@@ -1,8 +1,9 @@
+
 package com.stadifix.api.auth.api;
 
-import com.stadifix.api.auth.dto.RegisterRequest;
-import com.stadifix.api.auth.dto.RegisterResponse;
+import com.stadifix.api.auth.dto.*;
 import com.stadifix.api.auth.service.AuthService;
+import com.stadifix.api.auth.service.LoginService;
 
 import jakarta.validation.Valid;
 
@@ -15,21 +16,34 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
+    private final LoginService loginService;
 
-    public AuthController(AuthService authService) {
+    public AuthController(
+            AuthService authService,
+            LoginService loginService
+    ) {
         this.authService = authService;
+        this.loginService = loginService;
     }
 
     @PostMapping("/register")
     public ResponseEntity<RegisterResponse> register(
             @Valid @RequestBody RegisterRequest request
     ) {
-
         RegisterResponse response =
                 authService.register(request);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(response);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(
+            @Valid @RequestBody LoginRequest request
+    ) {
+        return ResponseEntity.ok(
+                loginService.login(request)
+        );
     }
 }

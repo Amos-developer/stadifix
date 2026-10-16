@@ -55,4 +55,9 @@ public class AppUser {
     public UserRole getRole() {
         return role;
     }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
 }
