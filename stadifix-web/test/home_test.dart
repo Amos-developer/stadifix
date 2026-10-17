@@ -31,12 +31,7 @@ void main() {
     );
     await tester.tap(find.text('James Mwangi'));
     await tester.pumpAndSettle();
-    expect(
-      find.text(
-        'Sample professional profile. Availability and bookings are not connected yet.',
-      ),
-      findsOneWidget,
-    );
+    expect(find.text('Professional Profile'), findsOneWidget);
   });
 
   testWidgets('Home navigation exposes guest profile', (tester) async {

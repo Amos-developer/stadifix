@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../data/demo_professionals.dart';
 import '../../domain/models/professional.dart';
+import 'provider_profile_screen.dart';
 
 enum _Sort { recommended, price, nearest }
 
@@ -106,49 +107,17 @@ class _ProviderListScreenState extends State<ProviderListScreen> {
     );
   }
 
-  void _details(Professional provider) {
-    showModalBottomSheet<void>(
-      context: context,
-      showDragHandle: true,
-      builder: (context) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(24, 0, 24, 28),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                provider.name,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text('${provider.service} • ${widget.city}'),
-              const SizedBox(height: 12),
-              Text(
-                'KSh ${provider.hourlyRate}/hr',
-                style: const TextStyle(
-                  fontSize: 20,
-                  color: _blue,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                'This is a sample profile. Live availability and booking are not connected yet.',
-              ),
-              const SizedBox(height: 20),
-              OutlinedButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('Back to professionals'),
-              ),
-            ],
-          ),
+  Future<void> _details(Professional provider) async {
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => ProviderProfileScreen(
+          professional: provider,
+          city: widget.city,
+          favorites: _favorites,
         ),
       ),
     );
+    if (mounted) setState(() {});
   }
 
   Widget _card(Professional provider) {

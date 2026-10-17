@@ -4,6 +4,7 @@ import '../../../authentication/presentation/screens/login_screen.dart';
 import '../../data/demo_professionals.dart';
 import '../../domain/models/professional.dart';
 import 'provider_list_screen.dart';
+import 'provider_profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -79,53 +80,17 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _showProfessional(Professional professional) {
-    showModalBottomSheet<void>(
-      context: context,
-      showDragHandle: true,
-      builder: (context) {
-        return SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(24, 0, 24, 28),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(
-                  professional.name,
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text('${professional.service} • $_city'),
-                const SizedBox(height: 8),
-                Text(
-                  '★ ${professional.rating} (${professional.reviews} reviews)',
-                  style: const TextStyle(color: Color(0xFFAF7400)),
-                ),
-                const SizedBox(height: 16),
-                const Text(
-                  'Sample professional profile. Availability and bookings are not connected yet.',
-                ),
-                const SizedBox(height: 20),
-                FilledButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    _notice(
-                      'Bookings coming soon',
-                      'You will be able to choose a service and appointment time here.',
-                    );
-                  },
-                  child: const Text('Book Now'),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
+  Future<void> _showProfessional(Professional professional) async {
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => ProviderProfileScreen(
+          professional: professional,
+          city: _city,
+          favorites: _favorites,
+        ),
+      ),
     );
+    if (mounted) setState(() {});
   }
 
   Future<void> _openProviders([String? category]) async {
