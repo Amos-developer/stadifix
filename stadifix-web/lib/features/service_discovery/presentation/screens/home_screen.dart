@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../booking/presentation/screens/my_bookings_screen.dart';
+
 import '../../../authentication/presentation/screens/login_screen.dart';
 import '../../data/demo_professionals.dart';
 import '../../domain/models/professional.dart';
@@ -556,7 +558,11 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 640),
-          child: _tab == 0 ? _home() : _destination(),
+          child: _tab == 0
+              ? _home()
+              : _tab == 1
+              ? MyBookingsScreen(onBack: () => setState(() => _tab = 0))
+              : _destination(),
         ),
       ),
     ),

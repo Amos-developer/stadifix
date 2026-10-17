@@ -22,6 +22,8 @@ Run `flutter run -d chrome --route=/home` to preview the homepage directly, or t
 
 ## Provider lists
 
+The Bookings navigation tab opens My Bookings with Upcoming/Past lists and demo statuses. New confirmation previews are saved in memory for the current session. Reschedule and Cancel update only this local list; View Details shows the saved summary. Initial bookings are sample data, and all changes reset when the app restarts.
+
 Provider cards on Home and the provider list open a full profile with experience, service options, pricing, favorites, and a share-details dialog. Book Now opens the booking form with the selected professional and service. Message opens a local preview only. Profile verification and work statistics are explicitly sample data.
 
 The booking form offers the next seven dates, sample time slots, optional service notes, and a one-hour price estimate. Confirm Booking opens the confirmation preview, carrying the selected provider, service, date, time, city, and notes. View Booking shows the complete local details; the share action copies a preview summary. No appointment is submitted and no payment is taken. Availability is not connected to the backend.

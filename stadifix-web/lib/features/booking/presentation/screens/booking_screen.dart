@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../service_discovery/domain/models/professional.dart';
 import '../../domain/models/booking_preview.dart';
+import '../../data/booking_history.dart';
 import 'booking_confirmation_screen.dart';
 
 class BookingScreen extends StatefulWidget {
@@ -72,18 +73,18 @@ class _BookingScreenState extends State<BookingScreen> {
 
   void _confirm() {
     FocusScope.of(context).unfocus();
+    final booking = BookingPreview(
+      professional: widget.professional,
+      date: _dates[_selectedDate],
+      time: _times[_selectedTime],
+      service: widget.service ?? widget.professional.service,
+      notes: _details.text.trim(),
+      city: widget.city,
+    );
+    BookingHistory.instance.add(booking);
     Navigator.of(context).push(
       MaterialPageRoute<void>(
-        builder: (_) => BookingConfirmationScreen(
-          booking: BookingPreview(
-            professional: widget.professional,
-            date: _dates[_selectedDate],
-            time: _times[_selectedTime],
-            service: widget.service ?? widget.professional.service,
-            notes: _details.text.trim(),
-            city: widget.city,
-          ),
-        ),
+        builder: (_) => BookingConfirmationScreen(booking: booking),
       ),
     );
   }
