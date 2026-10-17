@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../booking/presentation/screens/booking_screen.dart';
+
 import '../../domain/models/professional.dart';
 
 class ProviderProfileScreen extends StatefulWidget {
@@ -27,6 +29,17 @@ class _ProviderProfileScreenState extends State<ProviderProfileScreen> {
   String? _selectedService;
 
   void _preview(bool booking) {
+    if (booking) {
+      Navigator.of(context).push(
+        MaterialPageRoute<void>(
+          builder: (_) => BookingScreen(
+            professional: widget.professional,
+            service: _selectedService,
+          ),
+        ),
+      );
+      return;
+    }
     showModalBottomSheet<void>(
       context: context,
       showDragHandle: true,

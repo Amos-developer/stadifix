@@ -33,13 +33,9 @@ void main() {
     await tester.pump();
     await tester.tap(find.text('Book Now'));
     await tester.pumpAndSettle();
-    expect(find.text('Book James Mwangi'), findsOneWidget);
+    expect(find.text('Book Service'), findsOneWidget);
     expect(find.text('Pipe Repair'), findsWidgets);
-    expect(
-      find.text('Booking is coming soon. No appointment has been created.'),
-      findsOneWidget,
-    );
-    await tester.tap(find.text('Got it'));
+    await tester.pageBack();
     await tester.pumpAndSettle();
     await tester.tap(find.text('Message'));
     await tester.pumpAndSettle();
