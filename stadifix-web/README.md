@@ -14,7 +14,15 @@ For an Android emulator, use `http://10.0.2.2:8080`; use your server's HTTPS ori
 
 Registration sends `fullName`, `email`, `password`, and `role` (`CUSTOMER` or `PROVIDER`). Passwords require 12–72 characters and at most 72 UTF-8 bytes. Phone numbers are not part of the API contract. Successful registration creates an account; it does not establish an authenticated session.
 
-Cross-origin browser requests require CORS configuration on the API or a same-origin proxy. Social sign-up is disabled until supported by the backend. Sign-in and published terms are not implemented yet; terms consent is currently a client-side form requirement only.
+Cross-origin browser requests require CORS configuration on the API or a same-origin proxy. Social sign-up is disabled until supported by the backend. Published terms are not implemented yet; terms consent is currently a client-side form requirement only.
+
+## Homepage preview
+
+Run `flutter run -d chrome --route=/home` to preview the homepage directly, or tap Sign In on the login screen without entering credentials. It includes service search, category filters, local favorites, sample professional details, a location selector, and bottom navigation. All professionals and reviews are demo data. Booking, messages, notifications, and account data are not connected to the API.
+
+## Login screen
+
+The login screen is accessible from Splash and registration. It displays the backend's `email` and `password` fields with password visibility controls. For the current preview, Sign In bypasses validation and opens Home without credentials. It makes no API requests, stores no credentials, and does not create a session. Password recovery and social sign-in are not connected yet.
 
 ## Getting Started
 

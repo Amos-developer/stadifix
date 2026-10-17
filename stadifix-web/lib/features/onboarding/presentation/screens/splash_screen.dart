@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../authentication/presentation/screens/login_screen.dart';
+
 import 'onboarding_screen.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -7,11 +9,6 @@ class SplashScreen extends StatelessWidget {
 
   final VoidCallback? onGetStarted;
   final VoidCallback? onSignIn;
-
-  void _notify(BuildContext context, String message) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
-  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -139,9 +136,10 @@ class SplashScreen extends StatelessWidget {
                                 TextButton(
                                   onPressed:
                                       onSignIn ??
-                                      () => _notify(
-                                        context,
-                                        'Sign in is coming soon.',
+                                      () => Navigator.of(context).push(
+                                        MaterialPageRoute<void>(
+                                          builder: (_) => const LoginScreen(),
+                                        ),
                                       ),
                                   child: const Text(
                                     'Sign In',

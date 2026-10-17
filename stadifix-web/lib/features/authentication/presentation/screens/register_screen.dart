@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../data/repositories/auth_repository.dart';
 import '../../domain/models/register_request.dart';
+import 'login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({
@@ -43,8 +44,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     if (widget.onSignIn case final callback?) {
       callback();
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('The sign-in screen is coming soon.')),
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute<void>(builder: (_) => const LoginScreen()),
       );
     }
   }
