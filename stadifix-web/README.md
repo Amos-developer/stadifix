@@ -24,7 +24,7 @@ Run `flutter run -d chrome --route=/home` to preview the homepage directly, or t
 
 Provider cards on Home and the provider list open a full profile with experience, service options, pricing, favorites, and a share-details dialog. Book Now opens the booking form with the selected professional and service. Message opens a local preview only. Profile verification and work statistics are explicitly sample data.
 
-The booking form offers the next seven dates, sample time slots, optional service notes, and a one-hour price estimate. Confirm Booking opens a review summary; it does not create an appointment or charge a payment. Availability is not connected to the backend.
+The booking form offers the next seven dates, sample time slots, optional service notes, and a one-hour price estimate. Confirm Booking opens the confirmation preview, carrying the selected provider, service, date, time, city, and notes. View Booking shows the complete local details; the share action copies a preview summary. No appointment is submitted and no payment is taken. Availability is not connected to the backend.
 
 Tap a homepage category or the professionals' See All action to browse providers. Search, top-rated and saved filters, and recommended/price/distance sorting work with local sample data. Favorites persist between Home and the provider list during the current app session. Prices, distances, and reviews are samples; booking and backend discovery are not connected.
 

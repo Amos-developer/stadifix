@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 
 import '../../../service_discovery/domain/models/professional.dart';
+import '../../domain/models/booking_preview.dart';
+import 'booking_confirmation_screen.dart';
 
 class BookingScreen extends StatefulWidget {
-  const BookingScreen({super.key, required this.professional, this.service});
+  const BookingScreen({
+    super.key,
+    required this.professional,
+    this.service,
+    this.city = 'Nairobi',
+  });
 
   final Professional professional;
   final String? service;
+  final String city;
 
   @override
   State<BookingScreen> createState() => _BookingScreenState();
@@ -64,66 +72,16 @@ class _BookingScreenState extends State<BookingScreen> {
 
   void _confirm() {
     FocusScope.of(context).unfocus();
-    final date = _dates[_selectedDate];
-    showModalBottomSheet<void>(
-      context: context,
-      showDragHandle: true,
-      isScrollControlled: true,
-      builder: (context) => SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(24, 0, 24, 28),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const Icon(Icons.event_available_rounded, color: _blue, size: 46),
-              const SizedBox(height: 16),
-              const Text(
-                'Review your booking',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w800,
-                  color: _ink,
-                ),
-              ),
-              const SizedBox(height: 22),
-              Text(
-                widget.professional.name,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(widget.service ?? widget.professional.service),
-              const SizedBox(height: 8),
-              Text(
-                '${MaterialLocalizations.of(context).formatFullDate(date)} · ${_times[_selectedTime]}',
-              ),
-              const SizedBox(height: 12),
-              Text(
-                'Estimated price: KSh ${widget.professional.hourlyRate}',
-                style: const TextStyle(
-                  fontWeight: FontWeight.w700,
-                  color: _blue,
-                ),
-              ),
-              if (_details.text.trim().isNotEmpty) ...[
-                const SizedBox(height: 16),
-                Text(_details.text.trim()),
-              ],
-              const SizedBox(height: 20),
-              const Text(
-                'Preview only. No booking has been created and no payment has been taken.',
-                style: TextStyle(fontSize: 13, height: 1.5, color: _muted),
-              ),
-              const SizedBox(height: 20),
-              FilledButton(
-                onPressed: () => Navigator.pop(context),
-                child: const Text('Continue editing'),
-              ),
-            ],
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => BookingConfirmationScreen(
+          booking: BookingPreview(
+            professional: widget.professional,
+            date: _dates[_selectedDate],
+            time: _times[_selectedTime],
+            service: widget.service ?? widget.professional.service,
+            notes: _details.text.trim(),
+            city: widget.city,
           ),
         ),
       ),

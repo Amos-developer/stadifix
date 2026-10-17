@@ -37,18 +37,28 @@ void main() {
     );
     await tester.tap(find.text('Confirm Booking'));
     await tester.pumpAndSettle();
-    expect(find.text('Review your booking'), findsOneWidget);
+    expect(find.text('Booking Confirmed!'), findsOneWidget);
+    await tester.scrollUntilVisible(
+      find.text('View Booking'),
+      160,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.tap(find.text('View Booking'));
+    await tester.pumpAndSettle();
+    expect(find.text('Booking Details'), findsOneWidget);
     expect(find.textContaining('2:00 PM'), findsWidgets);
     expect(find.text('Fix the leaking kitchen sink.'), findsWidgets);
     expect(
       find.text(
-        'Preview only. No booking has been created and no payment has been taken.',
+        'Local preview only. No appointment has been submitted and no payment has been taken.',
       ),
       findsOneWidget,
     );
-    await tester.tap(find.text('Continue editing'));
+    await tester.tap(find.text('Done'));
     await tester.pumpAndSettle();
-    expect(find.text('Review your booking'), findsNothing);
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    expect(find.text('Booking Confirmed!'), findsNothing);
     expect(find.text('Fix the leaking kitchen sink.'), findsOneWidget);
   });
 }

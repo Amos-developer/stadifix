@@ -35,6 +35,7 @@ class _ProviderProfileScreenState extends State<ProviderProfileScreen> {
           builder: (_) => BookingScreen(
             professional: widget.professional,
             service: _selectedService,
+            city: widget.city,
           ),
         ),
       );
