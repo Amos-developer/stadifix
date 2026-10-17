@@ -20,7 +20,11 @@ Cross-origin browser requests require CORS configuration on the API or a same-or
 
 Run `flutter run -d chrome --route=/home` to preview the homepage directly, or tap Sign In on the login screen without entering credentials. It includes service search, category filters, local favorites, sample professional details, a location selector, and bottom navigation. All professionals and reviews are demo data. Booking, messages, notifications, and account data are not connected to the API.
 
-## Login screen
+## Provider lists
+
+Tap a homepage category or the professionals' See All action to browse providers. Search, top-rated and saved filters, and recommended/price/distance sorting work with local sample data. Favorites persist between Home and the provider list during the current app session. Prices, distances, and reviews are samples; booking and backend discovery are not connected.
+
+## Login screen preview
 
 The login screen is accessible from Splash and registration. It displays the backend's `email` and `password` fields with password visibility controls. For the current preview, Sign In bypasses validation and opens Home without credentials. It makes no API requests, stores no credentials, and does not create a session. Password recovery and social sign-in are not connected yet.
 

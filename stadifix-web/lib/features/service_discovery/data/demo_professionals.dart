@@ -2,6 +2,22 @@ import '../domain/models/professional.dart';
 
 const demoProfessionals = [
   Professional(
+    name: 'Grace Wanjiku',
+    service: 'Plumbing',
+    rating: 4.7,
+    reviews: 85,
+    hourlyRate: 600,
+    distanceKm: 3,
+  ),
+  Professional(
+    name: 'Peter Otieno',
+    service: 'Plumbing',
+    rating: 4.6,
+    reviews: 64,
+    hourlyRate: 450,
+    distanceKm: 5,
+  ),
+  Professional(
     name: 'James Mwangi',
     service: 'Plumbing',
     rating: 4.8,

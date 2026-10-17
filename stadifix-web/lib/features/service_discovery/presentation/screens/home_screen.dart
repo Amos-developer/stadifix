@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../authentication/presentation/screens/login_screen.dart';
 import '../../data/demo_professionals.dart';
 import '../../domain/models/professional.dart';
+import 'provider_list_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -127,6 +128,19 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Future<void> _openProviders([String? category]) async {
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => ProviderListScreen(
+          category: category,
+          city: _city,
+          favorites: _favorites,
+        ),
+      ),
+    );
+    if (mounted) setState(() {});
+  }
+
   void _showCategories() {
     showModalBottomSheet<void>(
       context: context,
@@ -153,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       trailing: const Icon(Icons.chevron_right),
                       onTap: () {
                         Navigator.pop(context);
-                        setState(() => _category = category.name);
+                        _openProviders(category.name);
                       },
                     ),
                 ],
@@ -452,11 +466,7 @@ class _HomeScreenState extends State<HomeScreen> {
               if (category.name == 'More') {
                 _showCategories();
               } else {
-                setState(
-                  () => _category = _category == category.name
-                      ? null
-                      : category.name,
-                );
+                _openProviders(category.name);
               }
             },
             child: Column(
@@ -498,10 +508,7 @@ class _HomeScreenState extends State<HomeScreen> {
           _category = null;
           _search.clear();
         });
-        _notice(
-          'All professionals',
-          'All sample professionals are shown below. Tap a card to view details.',
-        );
+        _openProviders();
       }),
       if (_category != null)
         Align(
