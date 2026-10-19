@@ -16,5 +16,5 @@ CREATE TABLE users (
                   CHECK (role IN ('CUSTOMER', 'PROVIDER'))
 );
 
-CREATE UNIQUE INDEX ux_users_email_lower
+CREATE UNIQUE INDEX ux_users_email
     ON users (LOWER(email));
