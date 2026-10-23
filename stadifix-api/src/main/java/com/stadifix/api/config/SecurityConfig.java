@@ -57,38 +57,60 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth
 
-                        // Public authentication endpoints
+                        // Public authentication
                         .requestMatchers(
                                 HttpMethod.POST,
                                 "/api/v1/auth/register",
                                 "/api/v1/auth/login"
                         ).permitAll()
 
-                        // Public catalog endpoints
+                        // Public service discovery
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/api/v1/categories",
+                                "/api/v1/ping",
                                 "/api/v1/services",
-                                "/api/v1/ping"
+                                "/api/v1/services/{serviceId}"
                         ).permitAll()
 
-                        // Authenticated users
+                        // Public provider profiles
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/api/v1/providers/{providerId}"
+                        ).permitAll()
+
+                        // Provider-only service management
+                        .requestMatchers(
+                                HttpMethod.POST,
+                                "/api/v1/services"
+                        ).hasRole("PROVIDER")
+
+                        .requestMatchers(
+                                HttpMethod.PUT,
+                                "/api/v1/services/{serviceId}"
+                        ).hasRole("PROVIDER")
+
+                        .requestMatchers(
+                                HttpMethod.PATCH,
+                                "/api/v1/services/{serviceId}/deactivate"
+                        ).hasRole("PROVIDER")
+
+                        // Provider management
+                        .requestMatchers(
+                                "/api/v1/providers/me/**"
+                        ).hasRole("PROVIDER")
+
+                        // Current account
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/api/v1/users/me"
                         ).authenticated()
 
-                        // Provider-only operations
-                        .requestMatchers(
-                                "/api/v1/providers/me/**"
-                        ).hasRole("PROVIDER")
-
-                        // Customer-only operations
+                        // Future customer endpoints
                         .requestMatchers(
                                 "/api/v1/customers/me/**"
                         ).hasRole("CUSTOMER")
 
-                        // Deny everything else
                         .anyRequest().denyAll()
                 )
 

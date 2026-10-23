@@ -2,5 +2,7 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/stadifix-api/src/main/resources/db/migration/V3__create_users.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/stadifix-api/src/main/resources/db/migration/V4__create_provider_profiles.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/stadifix-api/src/main/resources/db/migration/V5__create_services.sql" dialect="GenericSQL" />
   </component>
 </project>
