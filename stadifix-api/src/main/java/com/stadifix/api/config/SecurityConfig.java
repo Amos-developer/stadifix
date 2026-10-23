@@ -57,61 +57,91 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth
 
-                        // Public authentication
-                        .requestMatchers(
-                                HttpMethod.POST,
-                                "/api/v1/auth/register",
-                                "/api/v1/auth/login"
-                        ).permitAll()
+                                // Public authentication
+                                .requestMatchers(
+                                        HttpMethod.POST,
+                                        "/api/v1/auth/register",
+                                        "/api/v1/auth/login"
+                                ).permitAll()
 
-                        // Public service discovery
-                        .requestMatchers(
-                                HttpMethod.GET,
-                                "/api/v1/categories",
-                                "/api/v1/ping",
-                                "/api/v1/services",
-                                "/api/v1/services/{serviceId}"
-                        ).permitAll()
+                                // Public service discovery
+                                .requestMatchers(
+                                        HttpMethod.GET,
+                                        "/api/v1/categories",
+                                        "/api/v1/ping",
+                                        "/api/v1/services",
+                                        "/api/v1/services/{serviceId}"
+                                ).permitAll()
 
-                        // Public provider profiles
-                        .requestMatchers(
-                                HttpMethod.GET,
-                                "/api/v1/providers/{providerId}"
-                        ).permitAll()
+                                // Public provider profiles
+                                .requestMatchers(
+                                        HttpMethod.GET,
+                                        "/api/v1/providers/{providerId}"
+                                ).permitAll()
 
-                        // Provider-only service management
-                        .requestMatchers(
-                                HttpMethod.POST,
-                                "/api/v1/services"
-                        ).hasRole("PROVIDER")
+                                // Provider-only service management
+                                .requestMatchers(
+                                        HttpMethod.POST,
+                                        "/api/v1/services"
+                                ).hasRole("PROVIDER")
 
-                        .requestMatchers(
-                                HttpMethod.PUT,
-                                "/api/v1/services/{serviceId}"
-                        ).hasRole("PROVIDER")
+                                .requestMatchers(
+                                        HttpMethod.PUT,
+                                        "/api/v1/services/{serviceId}"
+                                ).hasRole("PROVIDER")
 
-                        .requestMatchers(
-                                HttpMethod.PATCH,
-                                "/api/v1/services/{serviceId}/deactivate"
-                        ).hasRole("PROVIDER")
+                                .requestMatchers(
+                                        HttpMethod.PATCH,
+                                        "/api/v1/services/{serviceId}/deactivate"
+                                ).hasRole("PROVIDER")
 
-                        // Provider management
-                        .requestMatchers(
-                                "/api/v1/providers/me/**"
-                        ).hasRole("PROVIDER")
+                                // Provider management
+                                .requestMatchers(
+                                        "/api/v1/providers/me/**"
+                                ).hasRole("PROVIDER")
 
-                        // Current account
-                        .requestMatchers(
-                                HttpMethod.GET,
-                                "/api/v1/users/me"
-                        ).authenticated()
+                                // Current account
+                                .requestMatchers(
+                                        HttpMethod.GET,
+                                        "/api/v1/users/me"
+                                ).authenticated()
 
-                        // Future customer endpoints
-                        .requestMatchers(
-                                "/api/v1/customers/me/**"
-                        ).hasRole("CUSTOMER")
+                                // Future customer endpoints
+                                .requestMatchers(
+                                        "/api/v1/customers/me/**"
+                                ).hasRole("CUSTOMER")
 
-                        .anyRequest().denyAll()
+
+                                // Customer booking operations
+                                .requestMatchers(
+                                        HttpMethod.POST,
+                                        "/api/v1/bookings"
+                                ).hasRole("CUSTOMER")
+
+                                .requestMatchers(
+                                        HttpMethod.GET,
+                                        "/api/v1/bookings"
+                                ).hasRole("CUSTOMER")
+
+                                .requestMatchers(
+                                        HttpMethod.PATCH,
+                                        "/api/v1/bookings/{bookingId}/cancel"
+                                ).hasRole("CUSTOMER")
+
+                                // Provider booking operations
+                                .requestMatchers(
+                                        HttpMethod.GET,
+                                        "/api/v1/providers/me/bookings"
+                                ).hasRole("PROVIDER")
+
+                                .requestMatchers(
+                                        HttpMethod.PATCH,
+                                        "/api/v1/bookings/{bookingId}/accept",
+                                        "/api/v1/bookings/{bookingId}/decline",
+                                        "/api/v1/bookings/{bookingId}/complete"
+                                ).hasRole("PROVIDER")
+
+                                .anyRequest().denyAll()
                 )
 
                 .oauth2ResourceServer(oauth2 ->
