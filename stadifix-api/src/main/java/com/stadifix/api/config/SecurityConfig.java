@@ -57,6 +57,8 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth
 
+
+
                                 // Public authentication
                                 .requestMatchers(
                                         HttpMethod.POST,

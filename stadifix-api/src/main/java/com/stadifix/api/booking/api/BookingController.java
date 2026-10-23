@@ -1,5 +1,6 @@
 package com.stadifix.api.booking.api;
 
+
 import com.stadifix.api.booking.dto.*;
 import com.stadifix.api.booking.service.BookingService;
 import com.stadifix.api.catalog.dto.PagedResponse;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.UUID;
+
 
 @Validated
 @RestController
